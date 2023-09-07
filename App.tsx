@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import { TouchableOpacity, Text } from "react-native";
 
 import Game from "./src/Game";
-import ChessGame from "./src/gameConfig";
+import ChessGame from "./src/gameConfig/gameConfig";
 
 const Container = styled.View`
   justify-content: center;
@@ -20,7 +20,7 @@ export default function App() {
       gameConfig={ChessGame}
       gameView={Game}
       player={player}
-      multiplayer={SocketIO({ server: "localhost:8000" })}
+      multiplayer={SocketIO({ server: "192.168.1.4:8000" })}
     />
   ) : (
     <Container>

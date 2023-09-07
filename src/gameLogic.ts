@@ -1,5 +1,5 @@
-import type { ZoneType } from 'meepl';
-import { ChessPieceType } from './ChessPieces';
+import type { ZoneType } from "meepl";
+import { ChessPieceType } from "./chessPieceTypes";
 
 export function isZoneAvailable(id: string, player: any, args: any): boolean {
   const { G } = args;
@@ -12,7 +12,10 @@ export function isZoneAvailable(id: string, player: any, args: any): boolean {
   const targetZone = G.zones.find((z) => z.id === id);
 
   switch (activePiece.type) {
-    case ChessPieceType.rook:
+    case ChessPieceType.w_rook:
+    case ChessPieceType.b_rook:
+    case ChessPieceType.w_pawn:
+    case ChessPieceType.b_pawn:
       return isZoneAvailableForRook(currZone, targetZone, activePlayer, G);
     default:
       return false;

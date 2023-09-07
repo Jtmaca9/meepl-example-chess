@@ -1,8 +1,9 @@
 import { createGameConfig } from "meepl/lib/commonjs/Game/gameConfig";
 import { createGridZones } from "meepl/lib/commonjs/Zone/utils";
 import { MOVE_ERROR } from "meepl/lib/commonjs/Game/actions";
-import ChessPieces, { ChessPieceType } from "./ChessPieces";
-import { isZoneAvailable } from "./gameLogic";
+import ChessPieces from "../chessPieceTypes";
+import pieces from "./pieces";
+import { isZoneAvailable } from "../gameLogic";
 
 const zones = createGridZones({
   rows: 8,
@@ -11,23 +12,6 @@ const zones = createGridZones({
   offsetX: 20,
   offsetY: 20,
 });
-
-const pieces = [
-  {
-    id: "white-rook-1",
-    type: ChessPieceType.rook,
-    name: "White Rook 1",
-    currZoneId: "0-0",
-    owner: "0",
-  },
-  {
-    id: "white-rook-2",
-    type: ChessPieceType.rook,
-    name: "White Rook 2",
-    currZoneId: "3-3",
-    owner: "1",
-  },
-];
 
 const moves = {
   // @ts-ignore
@@ -40,7 +24,7 @@ const moves = {
     });
   },
   // @ts-ignore
-  movePiece: ({ G, player }, zoneId) => {
+  movePiece: ({ G, player, events }, zoneId) => {
     let moveSuccessful = false;
     const currPlayer = player.get();
     const piece = G.pieces.find((p) => p.id === currPlayer.activePiece);
@@ -58,6 +42,7 @@ const moves = {
       // move piece
       piece.currZoneId = zoneId;
       moveSuccessful = true;
+      events.endTurn();
     }
     player.set({
       ...currPlayer,
