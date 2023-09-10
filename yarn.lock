@@ -6057,14 +6057,16 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==
 
-meepl@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/meepl/-/meepl-0.4.2.tgz#8c18f6d1fcbbce9100f227752c7d1dbad378d7bf"
-  integrity sha512-koh4R+sKfGRaE62C8Y5a8KNLP9Lw3decXcA6pVjl8pjMga2GOoRbtshE3WcDtScakEXoPj7DFMAJEoOFGStdfA==
+meepl@^0.4.16:
+  version "0.4.16"
+  resolved "https://registry.yarnpkg.com/meepl/-/meepl-0.4.16.tgz#45e904645476fab132ddf9e4626bc46b8bbb2d5d"
+  integrity sha512-G8JqxK7HsbXgseoY8TD47VmGqA5Y+hxl11oLHk9cdnInmiz6B5cAswtsXA+Yy+F9R5lXtrUE/ZgeyU5aORCQ1g==
   dependencies:
     boardgame.io "^0.50.2"
+    esm "^3.2.25"
     react-native-gesture-handler "^2.12.1"
     react-native-reanimated-zoom "^0.3.3"
+    ts-node "^10.9.1"
 
 memfs@^3.4.3:
   version "3.6.0"

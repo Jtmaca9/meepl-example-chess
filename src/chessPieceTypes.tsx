@@ -24,6 +24,10 @@ const activeStyle = {
 
 const availableStyle = {};
 
+const defaultStyle = {
+  padding: 4,
+};
+
 const ChessPieces: PieceBlueprintType[] = [
   {
     id: ChessPieceType.w_rook,
@@ -32,6 +36,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.b_rook,
@@ -40,6 +45,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.w_pawn,
@@ -48,6 +54,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.b_pawn,
@@ -56,6 +63,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.w_knight,
@@ -64,6 +72,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.b_knight,
@@ -72,6 +81,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.w_bishop,
@@ -80,6 +90,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.b_bishop,
@@ -88,6 +99,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.w_queen,
@@ -96,6 +108,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.b_queen,
@@ -104,6 +117,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.w_king,
@@ -112,6 +126,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
   {
     id: ChessPieceType.b_king,
@@ -120,6 +135,7 @@ const ChessPieces: PieceBlueprintType[] = [
     height: 45,
     activeStyle,
     availableStyle,
+    defaultStyle,
   },
 ];
 

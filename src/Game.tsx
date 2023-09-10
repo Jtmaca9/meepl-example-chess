@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Table,
   Board,
@@ -6,38 +6,55 @@ import {
   PieceRenderer,
   ZoneRenderer,
   GameViewWrapper,
+  useGameState,
 } from "meepl";
 import assets from "./assets";
 import { isZoneAvailable } from "./gameLogic";
+import ChessPieces from "./chessPieceTypes";
+import Test from "./test";
 
 export default function Game(props) {
-  const { G, ctx, plugins, moves } = props;
-  const activePlayer = plugins.player.data.players[ctx.currentPlayer];
+  const { moves, handleMove, players, meta, pieces, zones } =
+    useGameState(props);
 
   const availableStyle = {
     backgroundColor: "rgba(0, 0, 200, 0.5)",
   };
 
   return (
-    <GameViewWrapper assets={assets} {...props}>
+    <GameViewWrapper
+      pieceTypes={ChessPieces}
+      assets={assets}
+      //state
+      zones={zones}
+      pieces={pieces}
+      currentPlayer={meta.currentPlayer}
+      players={players}
+      isCurrentPlayer={meta.isCurrentPlayer}
+    >
       <Table tableWidth={400} tableHeight={400}>
         <Board height={400} width={400} asset={"Chessboard"} />
         <ZoneRenderer
           isZoneAvailable={isZoneAvailable}
           availableStyle={availableStyle}
-          onHandleZonePress={(id) => moves.movePiece(id)}
+          onHandleZonePress={(id) => handleMove(moves.movePiece, [id])}
         />
         <PieceRenderer
-          isActive={(id) => id === activePlayer.activePiece}
-          isAvailable={(id) =>
-            ctx.currentPlayer === G.pieces.find((p) => p.id === id).owner
+          legalMoveCheck={(targetZoneId) =>
+            isZoneAvailable({
+              id: targetZoneId,
+              activePlayer: players[meta.currentPlayerID],
+              pieces: pieces,
+              zones: zones,
+            })
           }
-          setActive={(id) => moves.setActivePiece(id)}
-          movePiece={(id) => moves.movePiece(id)}
+          setActive={(id) => handleMove(moves.setActivePiece, [id])}
+          movePiece={(id) => handleMove(moves.movePiece, [id])}
         />
       </Table>
       <UI>
-        {activePlayer.name}'s turn! Active Piece: {activePlayer.activePiece}
+        {players[meta.currentPlayerID].name}'s turn! Active Piece:{" "}
+        {players[meta.currentPlayerID].activePiece}
       </UI>
     </GameViewWrapper>
   );
