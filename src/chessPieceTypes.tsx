@@ -1,18 +1,17 @@
 import type { PieceBlueprintType } from "meepl";
 
 export enum ChessPieceType {
-  w_rook = "w_rook",
-  b_rook = "b_rook",
-  w_pawn = "w_pawn",
-  b_pawn = "b_pawn",
-  w_knight = "w_knight",
-  b_knight = "b_knight",
-  w_bishop = "w_bishop",
-  b_bishop = "b_bishop",
-  w_queen = "w_queen",
-  b_queen = "b_queen",
-  w_king = "w_king",
-  b_king = "b_king",
+  rook = "rook",
+  pawn = "pawn",
+  knight = "knight",
+  bishop = "bishop",
+  queen = "queen",
+  king = "king",
+}
+
+export enum ChessPieceVariant {
+  white = "white",
+  black = "black",
 }
 
 const activeStyle = {
@@ -28,10 +27,10 @@ const defaultStyle = {
   padding: 4,
 };
 
-const ChessPieces: PieceBlueprintType[] = [
+const baseChessPieces: Partial<PieceBlueprintType>[] = [
   {
-    id: ChessPieceType.w_rook,
-    asset: ChessPieceType.w_rook,
+    id: ChessPieceType.rook,
+    asset: ChessPieceType.rook,
     width: 45,
     height: 45,
     activeStyle,
@@ -39,8 +38,8 @@ const ChessPieces: PieceBlueprintType[] = [
     defaultStyle,
   },
   {
-    id: ChessPieceType.b_rook,
-    asset: ChessPieceType.b_rook,
+    id: ChessPieceType.pawn,
+    asset: ChessPieceType.pawn,
     width: 45,
     height: 45,
     activeStyle,
@@ -48,8 +47,8 @@ const ChessPieces: PieceBlueprintType[] = [
     defaultStyle,
   },
   {
-    id: ChessPieceType.w_pawn,
-    asset: ChessPieceType.w_pawn,
+    id: ChessPieceType.knight,
+    asset: ChessPieceType.knight,
     width: 45,
     height: 45,
     activeStyle,
@@ -57,8 +56,8 @@ const ChessPieces: PieceBlueprintType[] = [
     defaultStyle,
   },
   {
-    id: ChessPieceType.b_pawn,
-    asset: ChessPieceType.b_pawn,
+    id: ChessPieceType.bishop,
+    asset: ChessPieceType.bishop,
     width: 45,
     height: 45,
     activeStyle,
@@ -66,8 +65,8 @@ const ChessPieces: PieceBlueprintType[] = [
     defaultStyle,
   },
   {
-    id: ChessPieceType.w_knight,
-    asset: ChessPieceType.w_knight,
+    id: ChessPieceType.queen,
+    asset: ChessPieceType.queen,
     width: 45,
     height: 45,
     activeStyle,
@@ -75,68 +74,28 @@ const ChessPieces: PieceBlueprintType[] = [
     defaultStyle,
   },
   {
-    id: ChessPieceType.b_knight,
-    asset: ChessPieceType.b_knight,
+    id: ChessPieceType.king,
+    asset: ChessPieceType.king,
     width: 45,
     height: 45,
     activeStyle,
     availableStyle,
     defaultStyle,
   },
-  {
-    id: ChessPieceType.w_bishop,
-    asset: ChessPieceType.w_bishop,
-    width: 45,
-    height: 45,
-    activeStyle,
-    availableStyle,
-    defaultStyle,
-  },
-  {
-    id: ChessPieceType.b_bishop,
-    asset: ChessPieceType.b_bishop,
-    width: 45,
-    height: 45,
-    activeStyle,
-    availableStyle,
-    defaultStyle,
-  },
-  {
-    id: ChessPieceType.w_queen,
-    asset: ChessPieceType.w_queen,
-    width: 45,
-    height: 45,
-    activeStyle,
-    availableStyle,
-    defaultStyle,
-  },
-  {
-    id: ChessPieceType.b_queen,
-    asset: ChessPieceType.b_queen,
-    width: 45,
-    height: 45,
-    activeStyle,
-    availableStyle,
-    defaultStyle,
-  },
-  {
-    id: ChessPieceType.w_king,
-    asset: ChessPieceType.w_king,
-    width: 45,
-    height: 45,
-    activeStyle,
-    availableStyle,
-    defaultStyle,
-  },
-  {
-    id: ChessPieceType.b_king,
-    asset: ChessPieceType.b_king,
-    width: 45,
-    height: 45,
-    activeStyle,
-    availableStyle,
-    defaultStyle,
-  },
+];
+
+const ChessPieces: Partial<PieceBlueprintType>[] = [
+  ...baseChessPieces.map((piece) => ({
+    ...piece,
+    variants: {
+      white: {
+        asset: `w_${piece.asset}`,
+      },
+      black: {
+        asset: `b_${piece.asset}`,
+      },
+    },
+  })),
 ];
 
 export default ChessPieces;

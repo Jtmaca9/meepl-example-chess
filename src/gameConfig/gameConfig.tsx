@@ -1,5 +1,5 @@
 import { createGameConfig } from "meepl/lib/commonjs/Game/gameConfig";
-import { createGridZones } from "meepl/lib/commonjs/Zone/utils";
+import { createGridZones } from "meepl/lib/commonjs/Zone/createGridZones";
 import { MOVE_ERROR } from "meepl/lib/commonjs/Game/state";
 import pieces from "./pieces";
 import { isZoneAvailable } from "../gameLogic";
@@ -14,22 +14,13 @@ const zones = createGridZones({
 
 const moves = {
   // @ts-ignore
-  setActivePiece: ({ G, ctx, player }, pieceId) => {
-    if (G.pieces.find((p) => p.id === pieceId).owner !== ctx.currentPlayer)
-      return MOVE_ERROR.INVALID_MOVE;
-    player.set({
-      ...player.get(),
-      activePiece: pieceId,
-    });
-  },
-  // @ts-ignore
-  movePiece: ({ G, player, events }, zoneId) => {
+  movePiece: ({ G, player, events }, activePieceID, zoneId) => {
     let moveSuccessful = false;
     const currPlayer = player.get();
-    const piece = G.pieces.find((p) => p.id === currPlayer.activePiece);
+    const piece = G.pieces.find((p) => p.id === activePieceID);
     if (!piece) return MOVE_ERROR.INVALID_MOVE;
     if (
-      isZoneAvailable({
+      isZoneAvailable(activePieceID, {
         id: zoneId,
         activePlayer: currPlayer,
         pieces: G.pieces,

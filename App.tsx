@@ -4,7 +4,7 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import styled from "styled-components/native";
 import { TouchableOpacity, Text } from "react-native";
 
-import Game from "./src/Game";
+import GameView from "./src/GameView";
 import ChessGame from "./src/gameConfig/gameConfig";
 
 const Container = styled.View`
@@ -18,9 +18,9 @@ export default function App() {
   return player ? (
     <GameWrapper
       gameConfig={ChessGame}
-      gameView={Game}
+      gameView={GameView}
       player={player}
-      multiplayer={SocketIO({ server: "192.168.1.4:8000" })}
+      multiplayer={SocketIO({ server: "192.168.1.12:8000" })}
     />
   ) : (
     <Container>

@@ -1,18 +1,21 @@
 import type { PieceType, ZoneType } from "meepl";
 import { ChessPieceType } from "./chessPieceTypes";
 
-export function isZoneAvailable({
-  id,
-  activePlayer,
-  pieces,
-  zones,
-}: {
-  id: string;
-  activePlayer: any;
-  pieces: PieceType[];
-  zones: ZoneType[];
-}): boolean {
-  const activePiece = pieces.find((p) => p.id === activePlayer.activePiece);
+export function isZoneAvailable(
+  activePieceID: string | null,
+  {
+    id,
+    activePlayer,
+    pieces,
+    zones,
+  }: {
+    id: string;
+    activePlayer: any;
+    pieces: PieceType[];
+    zones: ZoneType[];
+  }
+): boolean {
+  const activePiece = pieces.find((p) => p.id === activePieceID);
 
   if (!activePiece) return false;
 
@@ -20,8 +23,7 @@ export function isZoneAvailable({
   const targetZone = zones.find((z) => z.id === id);
 
   switch (activePiece.type) {
-    case ChessPieceType.w_rook:
-    case ChessPieceType.b_rook:
+    case ChessPieceType.rook:
       return isZoneAvailableForRook({
         currZone,
         targetZone,
@@ -29,8 +31,7 @@ export function isZoneAvailable({
         zones,
         pieces,
       });
-    case ChessPieceType.w_pawn:
-    case ChessPieceType.b_pawn:
+    case ChessPieceType.pawn:
       return isZoneAvailableForPawn({
         currZone,
         targetZone,
@@ -38,16 +39,14 @@ export function isZoneAvailable({
         pieces,
         zones,
       });
-    case ChessPieceType.w_knight:
-    case ChessPieceType.b_knight:
+    case ChessPieceType.knight:
       return isZoneAvailableForKnight({
         currZone,
         targetZone,
         activePlayer,
         pieces,
       });
-    case ChessPieceType.w_bishop:
-    case ChessPieceType.b_bishop:
+    case ChessPieceType.bishop:
       return isZoneAvailableForBishop({
         currZone,
         targetZone,
@@ -55,8 +54,7 @@ export function isZoneAvailable({
         pieces,
         zones,
       });
-    case ChessPieceType.w_queen:
-    case ChessPieceType.b_queen:
+    case ChessPieceType.queen:
       return isZoneAvailableForQueen({
         currZone,
         targetZone,
@@ -64,8 +62,7 @@ export function isZoneAvailable({
         pieces,
         zones,
       });
-    case ChessPieceType.w_king:
-    case ChessPieceType.b_king:
+    case ChessPieceType.king:
       return isZoneAvailableForKing({
         currZone,
         targetZone,
@@ -328,15 +325,15 @@ export function isKingInCheck({
   playerId,
   pieces,
   zones,
+  activePieceId,
 }: {
   playerId: string;
   pieces: PieceType[];
   zones: ZoneType[];
+  activePieceId: string;
 }): boolean {
   const kingPiece = pieces.find(
-    ({ owner, type }) =>
-      owner === playerId &&
-      (type === ChessPieceType.w_king || type === ChessPieceType.b_king)
+    ({ owner, type }) => owner === playerId && type === ChessPieceType.king
   );
   if (!kingPiece) {
     return false;
@@ -347,9 +344,8 @@ export function isKingInCheck({
 
   for (const piece of opponentPieces) {
     if (
-      piece.type !== ChessPieceType.w_king &&
-      piece.type !== ChessPieceType.b_king &&
-      isZoneAvailable({
+      piece.type !== ChessPieceType.king &&
+      isZoneAvailable(activePieceId, {
         id: kingZone.id,
         activePlayer: { id: playerId, activePiece: piece.id },
         pieces,
